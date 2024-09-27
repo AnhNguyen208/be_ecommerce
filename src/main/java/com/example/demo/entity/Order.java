@@ -36,5 +36,5 @@ public class Order {
 
     LocalDateTime orderDate;
     double totalAmount;
-
+    int status;
 }

@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ApiResponse;
-import com.example.demo.dto.BookDto;
 import com.example.demo.dto.CartBookDto;
 import com.example.demo.dto.CartDto;
-import com.example.demo.entity.Book;
 import com.example.demo.entity.Cart;
-import com.example.demo.entity.CartBook;
 import com.example.demo.service.CartService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -54,8 +51,8 @@ public class CartController {
     }
 
     @DeleteMapping("/{id}")
-    ApiResponse<String> deleteCart(@PathVariable Long id) {
-        cartService.deleteCart(id);
+    ApiResponse<String> deleteCart(@PathVariable Long id, @RequestBody CartBookDto cartBookDto) {
+        cartService.removeBookFromCart(id, cartBookDto);
         return ApiResponse.<String>builder()
                 .result("Book has been deleted")
                 .build();
@@ -64,14 +61,14 @@ public class CartController {
     @PutMapping("/{id}")
     ApiResponse<CartDto> updateCart(@PathVariable Long id, @RequestBody CartBookDto cartBookDto) {
         return ApiResponse.<CartDto>builder()
-                .result(cartService.updateCart(id, cartBookDto))
+                .result(cartService.updateBookInCart(id, cartBookDto))
                 .build();
     }
 
     @PostMapping("/{id}")
     ApiResponse<CartDto> addBook(@PathVariable Long id, @RequestBody CartBookDto cartBookDto) {
         return ApiResponse.<CartDto>builder()
-                .result(cartService.addBook(id, cartBookDto))
+                .result(cartService.addBookToCart(id, cartBookDto))
                 .build();
     }
 

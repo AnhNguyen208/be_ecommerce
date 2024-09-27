@@ -71,39 +71,55 @@ public class CartService {
         return cartMapper.toCartDto(cart);
     }
 
-    public CartDto addBook(Long id, CartBookDto cartBookDto) {
+    public CartDto addBookToCart(Long id, CartBookDto cartBookDto) {
         CartBookKey cartBookKey = new CartBookKey(id, cartBookDto.getBook_id());
-        CartBook cartBook = cartBookRepository.findById(cartBookKey).orElseThrow(RuntimeException::new);
+        boolean isExists = cartBookRepository.existsById(cartBookKey);
+        CartBook cartBook = new CartBook();
 
-        if(cartBook != null) {
+        if(isExists) {
+            cartBook = cartBookRepository.findById(cartBookKey).orElseThrow();
             int quantity = cartBook.getQuantity();
             cartBook.setQuantity(quantity + 1);
         } else {
-            cartBook = new CartBook();
             cartBook.setId(cartBookKey);
             cartBook.setCart(cartRepository.findById(id).orElseThrow(RuntimeException::new));
             cartBook.setBook(bookRepository.findById(cartBookDto.getBook_id()).orElseThrow(RuntimeException::new));
             cartBook.setQuantity(1);
         }
-
         cartBookRepository.save(cartBook);
 
+        updateCart(id);
         return getCartById(id);
     }
 
-    public CartDto updateCart(Long id, CartBookDto cartBookDto){
+    public CartDto updateBookInCart(Long id, CartBookDto cartBookDto){
         CartBookKey cartBookKey = new CartBookKey(id, cartBookDto.getBook_id());
         CartBook cartBook = cartBookRepository.findById(cartBookKey).orElseThrow(RuntimeException::new);
 
         cartBook.setBook(bookRepository.findById(cartBookDto.getBook_id()).orElseThrow(RuntimeException::new));
         cartBook.setQuantity(cartBookDto.getQuantity());
         cartBookRepository.save(cartBook);
+        updateCart(id);
 
         return getCartById(id);
     }
 
-    public void deleteCart(Long id) {
-        cartRepository.deleteById(id);
+    public void removeBookFromCart(Long id, CartBookDto cartBookDto) {
+        CartBookKey cartBookKey = new CartBookKey(id, cartBookDto.getBook_id());
+        CartBook cartBook = cartBookRepository.findById(cartBookKey)
+                .orElseThrow();
+        cartBookRepository.delete(cartBook);
+        updateCart(id);
+    }
+
+    private void updateCart(Long id) {
+        Cart cart = cartRepository.findById(id).orElseThrow();
+        cart.setTotal_item(cart.getCartBooks().toArray().length);
+        cart.setTotal_amount(cart.getCartBooks().stream()
+                .mapToDouble((item) -> item.getBook().getPrice() * item.getQuantity())
+                .sum());
+
+        cartRepository.save(cart);
     }
 
     public List<Cart> test() {

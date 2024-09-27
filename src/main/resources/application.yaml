@@ -8,8 +8,8 @@ spring:
     url: "jdbc:mysql://localhost:3306/test1"
     driverClassName: "com.mysql.cj.jdbc.Driver"
     username: "root"
-    password: "dptk2008"
-#    password: "LA.luvina1234"
+    password: "LA.luvina1234"
+#    password: "dptk2008"
   jpa:
     hibernate:
       ddl-auto: update

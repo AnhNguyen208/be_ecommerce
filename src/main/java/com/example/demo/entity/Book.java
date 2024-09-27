@@ -38,12 +38,12 @@ public class Book {
     @JsonIgnore
     Category category;
 
-    @OneToOne(mappedBy = "book")
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonBackReference
     @JsonIgnore
     OrderDetail orderDetail;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnore
     Set<CartBook> cartBooks;
 }

@@ -18,14 +18,14 @@ public class CartBook {
     @EmbeddedId
     CartBookKey id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @MapsId("cartId")
     @JoinColumn(name = "cart_id")
     @JsonBackReference
     @JsonIgnore
     Cart cart;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @MapsId("bookId")
     @JoinColumn(name = "book_id")
     @JsonBackReference
