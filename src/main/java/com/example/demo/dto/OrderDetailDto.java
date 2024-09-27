@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CartBookDto {
+public class OrderDetailDto {
     Long book_id;
     String title;
     double price;

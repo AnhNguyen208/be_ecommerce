@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,7 +33,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnore
-    Set<OrderDetail> orderDetails;
+    List<OrderDetail> orderDetails;
 
     LocalDateTime orderDate;
     double totalAmount;

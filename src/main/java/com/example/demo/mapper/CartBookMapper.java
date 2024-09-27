@@ -14,6 +14,7 @@ public interface CartBookMapper {
     @Mapping(source = "cartBook.book.id", target = "book_id")
     @Mapping(source = "cartBook.quantity", target = "quantity")
     @Mapping(source = "cartBook.book.price", target = "price")
+    @Mapping(source = "cartBook.book.title", target = "title")
     CartBookDto toCartBookDto(CartBook cartBook);
 
 //    CartBook toCartBook(CartItemDto cartItemDto);

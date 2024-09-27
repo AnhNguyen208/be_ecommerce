@@ -26,12 +26,11 @@ public class OrderDetail {
     @JsonIgnore
     Order order;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     @JsonManagedReference
     @JsonIgnore
     Book book;
-
 
     int quantity;
     double price;
