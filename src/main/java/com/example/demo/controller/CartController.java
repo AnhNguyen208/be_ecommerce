@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@CrossOrigin
 public class CartController {
     CartService cartService;
 
