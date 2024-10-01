@@ -10,5 +10,6 @@ public interface BookMapper {
     Book toBook(BookDto bookDto);
 
     @Mapping(source = "book.category.id", target = "category_id")
+    @Mapping(source = "book.category.name", target = "category_name")
     BookDto toBookDto(Book book);
 }

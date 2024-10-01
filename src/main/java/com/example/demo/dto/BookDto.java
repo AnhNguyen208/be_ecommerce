@@ -19,4 +19,5 @@ public class BookDto {
     String description;
     String imageUrl;
     Long category_id;
+    String category_name;
 }

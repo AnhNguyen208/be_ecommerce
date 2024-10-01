@@ -26,7 +26,7 @@ public class OrderDetail {
     @JsonIgnore
     Order order;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     @JsonManagedReference
     @JsonIgnore
