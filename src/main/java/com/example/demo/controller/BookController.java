@@ -67,6 +67,13 @@ public class BookController {
                 .build();
     }
 
+    @GetMapping("/search")
+    ApiResponse<List<BookDto>> search(@RequestParam String keyword) {
+        return ApiResponse.<List<BookDto>>builder()
+                .result(bookService.search(keyword))
+                .build();
+    }
+
     @GetMapping("/test")
     List<Book> test() {
         return bookService.test();

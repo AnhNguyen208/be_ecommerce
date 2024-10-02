@@ -60,6 +60,11 @@ public class BookService {
         return bookMapper.toBookDto(book);
     }
 
+    public List<BookDto> search(String keyword) {
+        return bookRepository.findByTitleContainingOrDescriptionContaining(keyword, keyword).stream()
+                .map(bookMapper::toBookDto).toList();
+    }
+
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
